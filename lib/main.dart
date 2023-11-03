@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
@@ -5,7 +6,9 @@ final log = Logger('LoggingExample');
 void main() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
+    if (kDebugMode) {
+      print('${record.level.name}: ${record.time}: ${record.message}');
+    }
   });
   runApp(const MyApp());
 }
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '支付宝'),
+      home: const MyHomePage(title: 'AppMusic'),
     );
   }
 }
@@ -37,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // 选中的图标
   int selectedIndex = 1;
   void onItemTapped(int index) {
     setState(() {
